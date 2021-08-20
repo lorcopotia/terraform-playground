@@ -8,13 +8,13 @@ terraform {
 
 provider "docker" {}
 
-resource "docker_image" "webeuro" {
-  name         = "webeuro:v4"
+resource "docker_image" "my-image" {
+  name         = "my-image:v4"
   keep_locally = false
 }
 
-resource "docker_container" "webeuro" {
-  image = docker_image.webeuro.latest
+resource "docker_container" "my-cname" {
+  image = docker_image.my-image.latest
   name  = "web4"
   ports {
     internal = 5000
