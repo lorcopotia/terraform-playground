@@ -6,3 +6,9 @@
 ```shell
 read -sp "Azure password: " AZ_PASS && echo && az login -u <usuario> -p $AZ_PASS
 ```
+- Modificar en el fichero terraform.tfvars los datos de:
+```shell
+subscription_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+tenant_id       = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+resource_group  = "x-xxxxxxxx-playground-sandbox"
+```
