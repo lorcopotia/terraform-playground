@@ -108,6 +108,7 @@ resource "azurerm_virtual_machine_scale_set" "vmss" {
    capacity = 2
  }
 
+ # Ejecutar: az vm image list --output table , para obtener los datos necesarios a continuacion
  storage_profile_image_reference {
    publisher = "Canonical"
    offer     = "UbuntuServer"
