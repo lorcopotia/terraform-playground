@@ -5,7 +5,7 @@
 #  path = "/tmp/terraform-provider-libvirt-pool-centos"
 #}
 
-# We fetch the latest ubuntu release image from their mirrors
+# We fetch the latest centos release image from their mirrors
 resource "libvirt_volume" "centos-qcow2" {
   name   = "centos-qcow2"
   pool   = "default"
