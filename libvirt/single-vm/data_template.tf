@@ -1,5 +1,5 @@
 data "template_file" "user_data" {
-  template = file("${path.module}/cloud_init.cfg")
+  template = file("${path.module}/cloud_init.cfg", { hostname = element(var.hostname), fqdn = "${var.hostname}.${var.domain}" })
 }
 
 data "template_file" "network_config" {
