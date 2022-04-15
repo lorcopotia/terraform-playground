@@ -1,7 +1,3 @@
-data "template_file" "user_data" {
-  template = file("${path.module}/cloud_init.cfg", { hostname = element(var.hostname), fqdn = "${var.hostname}.${var.domain}" })
-}
-
 data "template_file" "network_config" {
   template = file("${path.module}/network_config.cfg")
 }
@@ -12,7 +8,7 @@ data "template_file" "network_config" {
 # you can add also meta_data field
 resource "libvirt_cloudinit_disk" "commoninit" {
   name           = "commoninit.iso"
-  user_data      = data.template_file.user_data.rendered
+  user_data      = templatefile("${path.module}/cloud_init.cfg", { hostname = "${var.hostname}", fqdn = "${var.hostname}.${var.domain}" })
   network_config = data.template_file.network_config.rendered
   pool           = "default"
 }
