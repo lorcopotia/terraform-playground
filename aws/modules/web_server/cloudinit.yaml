@@ -1,0 +1,11 @@
+#cloud-config
+# Sets the GOPATH & downloads the demo payload
+runcmd:
+  - sudo rm -rf /tmp
+  - sudo git clone https://github.com/hashicorp/demo-terraform-101 /tmp
+  - sudo sh /tmp/assets/setup-web.sh
+  # - sudo su terraform
+  # - sudo mkdir /home/terraform/go
+  # - sudo chown terraform:hashicorp /home/terraform/go
+  # - export GOPATH=/home/terraform/go
+  # - go get github.com/hashicorp/learn-go-webapp-demo
