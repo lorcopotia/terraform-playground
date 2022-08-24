@@ -7,6 +7,12 @@ provider "aws" {
 data "aws_availability_zones" "available" {}
 data "aws_region" "current" {}
 
+#Retrieve the key from AWS
+data "aws_key_pair" "mykey" {
+  key_name           = "dunix-manjaro"
+  include_public_key = true
+}
+
 module "webserver" {
   source          = "./modules/web_server"
   ami             = var.linux_ami

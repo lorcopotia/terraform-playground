@@ -1,8 +1,3 @@
-data "aws_key_pair" "mykey" {
-  key_name           = "dunix-manjaro"
-  include_public_key = true
-}
-
 #Define the VPC 
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
