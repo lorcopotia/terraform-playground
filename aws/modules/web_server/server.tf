@@ -8,7 +8,7 @@ variable "security_groups" {
 variable "key_name" {}
 
 data "template_file" "user_data" {
-  template = file("cloudinit.yaml")
+  template = file("${path.module}/cloudinit.yaml")
 }
 
 resource "aws_instance" "web" {
