@@ -1,8 +1,8 @@
 terraform {
- required_version = ">= 0.13"
+  required_version = ">= 0.13"
   required_providers {
     libvirt = {
-      source  = "dmacvicar/libvirt"
+      source = "dmacvicar/libvirt"
     }
   }
 }
@@ -12,7 +12,7 @@ provider "libvirt" {
 }
 
 resource "libvirt_volume" "os_image" {
-  name   = "os_image"
+  name = "os_image"
   #source = "https://cloud.centos.org/altarch/7/images/CentOS-7-x86_64-GenericCloud-2009.qcow2"
   source = "/mnt/DATOS/Instalar/ISOS/CentOS-7-x86_64-GenericCloud-2009.qcow2"
 }
@@ -24,17 +24,17 @@ resource "libvirt_volume" "volume" {
 }
 
 resource "libvirt_cloudinit_disk" "commoninit" {
-          count = length(var.hostname)
-          name = "${var.hostname[count.index]}-commoninit.iso"
-          user_data = templatefile("${path.module}/cloud_init_centos.cfg",
-                                   { hostname = element(var.hostname, count.index), fqdn = "${var.hostname[count.index]}.${var.domain}" })
-          network_config = file("${path.module}/network_config.cfg")
+  count = length(var.hostname)
+  name  = "${var.hostname[count.index]}-commoninit.iso"
+  user_data = templatefile("${path.module}/cloud_init_centos_k8s_base.cfg",
+  { hostname = element(var.hostname, count.index), fqdn = "${var.hostname[count.index]}.${var.domain}" })
+  network_config = file("${path.module}/network_config.cfg")
 }
 
 resource "libvirt_domain" "nodes" {
-  name = "${var.hostname[count.index]}"
+  name   = var.hostname[count.index]
   memory = var.memoryMB
-  vcpu = var.cpu
+  vcpu   = var.cpu
 
   disk {
     volume_id = element(libvirt_volume.volume.*.id, count.index)

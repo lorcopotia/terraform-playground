@@ -15,9 +15,9 @@ resource "libvirt_volume" "centos-qcow2" {
 
 # Create the machine
 resource "libvirt_domain" "vm-centos" {
-  name   = "centos"
-  memory = "512"
-  vcpu   = 1
+  name   = var.hostname
+  memory = var.memoryMB
+  vcpu   = var.cpu
 
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 
