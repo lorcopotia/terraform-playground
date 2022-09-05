@@ -8,7 +8,7 @@ data "template_file" "network_config" {
 # you can add also meta_data field
 resource "libvirt_cloudinit_disk" "commoninit" {
   name           = "commoninit.iso"
-  user_data      = templatefile("${path.module}/cloud_init.cfg", { hostname = "${var.hostname}", fqdn = "${var.hostname}.${var.domain}" })
+  user_data      = templatefile("${path.module}/cloud_init_centos_ansible.cfg", { hostname = "${var.hostname}", fqdn = "${var.hostname}.${var.domain}" })
   network_config = data.template_file.network_config.rendered
   pool           = "default"
 }
