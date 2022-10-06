@@ -13,8 +13,8 @@ provider "libvirt" {
 
 resource "libvirt_volume" "os_image" {
   name = "os_image"
-  #source = "https://cloud.centos.org/altarch/7/images/CentOS-7-x86_64-GenericCloud-2009.qcow2"
-  source = "/mnt/DATOS/Instalar/ISOS/CentOS-7-x86_64-GenericCloud-2009.qcow2"
+  #source = "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2111.qcow2"
+  source = "/mnt/DATOS/Instalar/ISOS/CentOS-7-x86_64-GenericCloud-2111.qcow2"
 }
 
 resource "libvirt_volume" "volume" {
@@ -31,6 +31,7 @@ resource "libvirt_cloudinit_disk" "commoninit" {
   network_config = file("${path.module}/network_config.cfg")
 }
 
+
 resource "libvirt_domain" "nodes" {
   name   = var.hostname[count.index]
   memory = var.memoryMB
@@ -41,11 +42,12 @@ resource "libvirt_domain" "nodes" {
   }
 
   network_interface {
-    network_name   = "default"
-    wait_for_lease = true
+    network_name = "default"
+    addresses = ["${var.ipaddr[count.index]}"]
   }
 
   cloudinit = libvirt_cloudinit_disk.commoninit[count.index].id
+  # qemu_agent = true
 
   count = length(var.hostname)
 }
