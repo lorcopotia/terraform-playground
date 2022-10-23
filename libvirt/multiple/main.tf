@@ -14,6 +14,7 @@ provider "libvirt" {
 resource "libvirt_volume" "os_image" {
   name = "os_image"
   source = "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2111.qcow2"
+  # source = "/mnt/DATOS/Instalar/ISOS/CentOS-7-x86_64-GenericCloud-2111.qcow2"
 }
 
 resource "libvirt_volume" "volume" {
