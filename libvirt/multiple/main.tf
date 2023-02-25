@@ -8,7 +8,8 @@ terraform {
 }
 
 provider "libvirt" {
-  uri = "qemu:///system"
+  # uri = "qemu:///system"
+  uri = "qemu+ssh://dunix@nexus/system"
 }
 
 resource "libvirt_volume" "os_image" {
@@ -30,18 +31,19 @@ resource "libvirt_cloudinit_disk" "commoninit" {
     { hostname = element(var.hostname, count.index), fqdn = "${var.hostname[count.index]}.${var.domain}" })
 }
 
-resource "libvirt_network" "kube_net" {
-    name      = "kubernetes"
-    mode      = "nat"
-    domain    = var.domain
-    addresses = var.network
-    dhcp {
-      enabled = false
-    }
-    dns {
-      enabled = true
-    }
-}
+# resource "libvirt_network" "kube_net" {
+#     name      = "kubernetes"
+#     mode      = "open"
+#     domain    = var.domain
+#     #addresses = var.network
+#     dhcp {
+#       #enabled = false
+#       enabled = true
+#     }
+#     dns {
+#       enabled = true
+#     }
+# }
 
 resource "libvirt_domain" "nodes" {
   name   = var.hostname[count.index]
@@ -53,9 +55,31 @@ resource "libvirt_domain" "nodes" {
   }
 
   network_interface {
-    network_name = "kubernetes"
-    network_id     = libvirt_network.kube_net.id
-    addresses = ["${var.ipaddr[count.index]}"]
+    network_name = "host-bridge"
+    #network_name = "kubernetes"
+    #network_id     = libvirt_network.kube_net.id
+    #addresses = ["${var.ipaddr[count.index]}"]
+    wait_for_lease = true
+  }
+
+  # IMPORTANT: this is a known bug on cloud images, since they expect a console
+  # we need to pass it
+  # https://bugs.launchpad.net/cloud-images/+bug/1573095
+  console {
+    type        = "pty"
+    target_port = "0"
+    target_type = "serial"
+  }
+
+  console {
+    type        = "pty"
+    target_type = "virtio"
+    target_port = "1"
+  }
+
+  graphics {
+    type        = "vnc"
+    listen_type = "address"
   }
 
   cloudinit = libvirt_cloudinit_disk.commoninit[count.index].id
