@@ -1,6 +1,6 @@
 variable "vm-name" {
   type        = string
-  description = "Name of the instance to be deployed"
+  description = "Name of the instance"
 }
 variable "template" {
   type        = string
@@ -51,4 +51,3 @@ variable "vsphere-passwd" {
   type        = string
   description = "Set vSphere passwd for connection"
 }
-
