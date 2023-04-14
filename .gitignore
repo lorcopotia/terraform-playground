@@ -2,4 +2,3 @@
 .terraform.lock.*
 terraform*
 *.pub
-*.tfvars
