@@ -42,15 +42,12 @@ variable "port-group" {
 variable "vsphere-user" {
   type        = string
   description = "Set vSphere username for connection"
-  default     = "administrator@vsphere.local"
 }
 variable "vsphere-server" {
   type        = string
   description = "Set vSphere Server"
-  default     = "lgchfvc01.vcloud.morse.lab"
 }
 variable "vsphere-passwd" {
   type        = string
   description = "Set vSphere passwd for connection"
-  default     = "L0g1c4l1s2015*"
 }
