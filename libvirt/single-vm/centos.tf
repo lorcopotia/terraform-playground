@@ -30,7 +30,7 @@ resource "libvirt_domain" "vm-centos" {
   }
   
   graphics {
-    type        = "spice"
+    type        = "vnc"
     listen_type = "address"
     autoport    = true
   }
