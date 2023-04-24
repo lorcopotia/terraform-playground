@@ -11,6 +11,7 @@ resource "libvirt_volume" "centos-qcow2" {
   pool   = "default"
   source = "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2111.qcow2"
   format = "qcow2"
+  qemu_agent = true
 }
 
 # Create the machine
