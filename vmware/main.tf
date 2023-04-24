@@ -47,7 +47,7 @@ resource "vsphere_virtual_machine" "vm" {
     customize {
       linux_options {
         host_name = "hello-world"
-        domain    = "es.logicalis.com"
+        domain    = var.domain
       }
       network_interface {
         ipv4_address = "172.16.11.10"
