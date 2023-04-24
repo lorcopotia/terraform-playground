@@ -2,6 +2,10 @@ variable "vm-name" {
   type        = string
   description = "Name of the instance"
 }
+variable "domain" {
+  type        = string
+  description = "Domain"
+}
 variable "template" {
   type        = string
   description = "Name of the template to be used for deployment"
