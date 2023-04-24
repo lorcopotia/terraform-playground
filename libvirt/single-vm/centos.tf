@@ -28,6 +28,12 @@ resource "libvirt_domain" "vm-centos" {
   disk {
     volume_id = libvirt_volume.centos-qcow2.id
   }
+  
+  graphics {
+    type        = "spice"
+    listen_type = "address"
+    autoport    = true
+  }
 
 }
 
