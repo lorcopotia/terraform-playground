@@ -2,7 +2,7 @@
 
 Create a file named br0.xml for KVM using vi command or cat command:
 ```
-cat /tmp/br0.xml
+cat /tmp/virsh_host-bridge.xml
 ```
 Append the following code:
 ```
@@ -15,7 +15,7 @@ Append the following code:
 
 Run virsh command as follows:
 ```
-virsh net-define /tmp/br0.xml
+virsh net-define /tmp/virsh_host-bridge.xml
 virsh net-start br0
 virsh net-autostart br0
 virsh net-list --all
