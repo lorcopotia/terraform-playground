@@ -1,3 +1,12 @@
+# Settings
+
+## Update qemu.conf
+
+Uncomment the line:
+```
+security_driver = "none"
+```
+
 ## Creating bridge network for KVM
 
 Create a file named br0.xml for KVM using vi command or cat command:
